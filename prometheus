@@ -1,1 +1,11 @@
-
+1  prometheus对接 hpa
+   搭建可以参考文档：https://www.qikqiak.com/post/k8s-hpa-usage/  
+   hpa自定义指标需要实用apapter讲promethus的指标进行转换，在搭建中需要安装apapter
+   使用前提：
+    1 服务内部封装了prometheus的自定义指标，并且能够正常被采集到
+	  2 服务部署的yaml文件中必须写入指标采集的关键字，便于采集，如下所示（在template.matadata.label同级）：
+	    annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "80"       #指标上报端口
+        prometheus.io/path: "/status/format/prometheus"   #指标上报路径
+  
